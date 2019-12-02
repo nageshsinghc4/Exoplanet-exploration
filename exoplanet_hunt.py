@@ -5,8 +5,6 @@ Created on Fri Nov 29 18:35:20 2019
 
 @author: nageshsinghchauhan
 """
-
-
 import os
 import warnings
 import math
@@ -125,8 +123,6 @@ x_test = normalize(x_test)
 x_train = filtered = ndimage.filters.gaussian_filter(x_train, sigma=10)
 x_test = ndimage.filters.gaussian_filter(x_test, sigma=10)
 
-
-
 #Feature scaling
 std_scaler = StandardScaler()
 x_train = scaled = std_scaler.fit_transform(x_train)
@@ -145,7 +141,7 @@ while current_variance/total < 0.90:
     k=k+1
     
 """
-This plot tells us that selecting 35 components we can preserve something around 98.8% or 99% 
+This plot tells us that selecting 37 components we can preserve something around 98.8% or 99% 
 of the total variance of the data. It makes sense, we’ll not use 100% of our variance,
 because it denotes all components, and we want only the principal ones.
 """
@@ -161,29 +157,12 @@ plt.ylabel('Variance (%)') #for each component
 plt.title('Exoplanet Dataset Explained Variance')
 plt.show()
 
-
-df = pd.DataFrame(data=x_train[1:,1:], index=x_train[1:,0], columns=x_train[0,1:])
-
-
-corr = x_train.corr()
-ax = sns.heatmap(
-    corr, 
-    vmin=-1, vmax=1, center=0,
-    cmap=sns.diverging_palette(20, 220, n=200),
-    square=True
-)
-ax.set_xticklabels(
-    ax.get_xticklabels(),
-    rotation=45,
-    horizontalalignment='right'
-);
-        
-   df = pd.DataFrame.from_records(x_train)     
+#convert numpy to dataframe  
+df = pd.DataFrame.from_records(x_train)     
 corr = df.corr(method='kendall')
 plt.figure(figsize=(15,8))
 sns.heatmap(corr, annot=True)
 df.columns
-
 
 #Resampling as the data is highly unbalanced.
 print("Before OverSampling, counts of label '1': {}".format(sum(y_train==1)))
@@ -195,8 +174,7 @@ x_train_res, y_train_res = sm.fit_sample(x_train, y_train.ravel())
 print("After OverSampling, counts of label '1': {}".format(sum(y_train_res==1)))
 print("After OverSampling, counts of label '0': {}".format(sum(y_train_res==0)))
 
-###############################################################################
-#KNN
+#model building
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import precision_score, recall_score,roc_curve,auc, f1_score, roc_auc_score,confusion_matrix, accuracy_score, classification_report
 def model(classifier,dtrain_x,dtrain_y,dtest_x,dtest_y):
@@ -231,7 +209,6 @@ def model(classifier,dtrain_x,dtrain_y,dtest_x,dtest_y):
     plt.legend(loc = "best")
     plt.title("ROC - CURVE & AREA UNDER CURVE",fontsize=20)
     """
-
     #Display feature importance   
     df1 = pd.DataFrame.from_records(dtrain_x)     
     tmp = pd.DataFrame({'Feature': df1.columns, 'Feature importance': classifier.feature_importances_})
@@ -270,5 +247,3 @@ model(SVM_model,x_train_res,y_train_res,x_test,y_test)
 #Accuracy mean: 1.0
 #Accuracy variance: 0.0
 #accuracy_score : 0.9912280701754386
-
-###############################################################################
