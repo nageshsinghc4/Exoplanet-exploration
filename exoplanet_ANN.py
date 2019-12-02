@@ -5,9 +5,6 @@ Created on Mon Dec  2 18:02:30 2019
 
 @author: nageshsinghchauhan
 """
-
-
-
 import os
 import warnings
 import math
@@ -76,12 +73,10 @@ test_data = reduce_memory(test_data)
 train_data = reduce_memory(train_data)
 
 #Visualization:
-
 plt.figure(figsize=(6,4))
 colors = ["0", "1"]
 sns.countplot('LABEL', data=train_data, palette=colors)
 plt.title('Class Distributions \n (0: Not Exoplanet || 1: Exoplanet)', fontsize=14)
-
 
 from pylab import rcParams
 rcParams['figure.figsize'] = 13, 8
@@ -102,7 +97,6 @@ for i in labels_1:
     plt.xlabel("Flux values")
     plt.show()
 
-
 #Gaussian histogram of exoplanets
 labels_1=[16,21,25]
 for i in labels_1:
@@ -111,7 +105,6 @@ for i in labels_1:
     plt.xlabel("Flux values")
     plt.show()
     
-
 #splitting the data
 x_train = train_data.drop(["LABEL"],axis=1)
 y_train = train_data["LABEL"]   
@@ -125,8 +118,6 @@ x_test = normalize(x_test)
 #Applying of gaussian filter
 x_train = filtered = ndimage.filters.gaussian_filter(x_train, sigma=10)
 x_test = ndimage.filters.gaussian_filter(x_test, sigma=10)
-
-
 
 #Feature scaling
 std_scaler = StandardScaler()
@@ -161,30 +152,12 @@ plt.xlabel('Number of Components')
 plt.ylabel('Variance (%)') #for each component
 plt.title('Exoplanet Dataset Explained Variance')
 plt.show()
-
-
-df = pd.DataFrame(data=x_train[1:,1:], index=x_train[1:,0], columns=x_train[0,1:])
-
-
-corr = x_train.corr()
-ax = sns.heatmap(
-    corr, 
-    vmin=-1, vmax=1, center=0,
-    cmap=sns.diverging_palette(20, 220, n=200),
-    square=True
-)
-ax.set_xticklabels(
-    ax.get_xticklabels(),
-    rotation=45,
-    horizontalalignment='right'
-);
         
-   df = pd.DataFrame.from_records(x_train)     
+df = pd.DataFrame.from_records(x_train)     
 corr = df.corr(method='kendall')
 plt.figure(figsize=(15,8))
 sns.heatmap(corr, annot=True)
 df.columns
-
 
 #Resampling as the data is highly unbalanced.
 print("Before OverSampling, counts of label '1': {}".format(sum(y_train==1)))
@@ -195,7 +168,6 @@ x_train_res, y_train_res = sm.fit_sample(x_train, y_train.ravel())
 
 print("After OverSampling, counts of label '1': {}".format(sum(y_train_res==1)))
 print("After OverSampling, counts of label '0': {}".format(sum(y_train_res==0)))
-
 
 #Artificial Neural Network
 from tensorflow import set_random_seed
