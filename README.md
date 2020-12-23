@@ -6,6 +6,4 @@ These exoplanets come in a huge variety of sizes and orbits. Some are gigantic p
 I wanted to see if I could look at the available exoplanet data and make predictions about which planets might be hospitable to life. The data made publicly available by NASA is beautiful in that it contains many useful features. The goal is to create a model that can predict the existence of an Exoplanet, utilizing the flux (light intensity) readings from 3198 different stars over time.
 The dataset can be downloaded from here. https://www.kaggle.com/keplersmachines/kepler-labelled-time-series-data
 
-Also check out this medium article to understand more.
-
-https://towardsdatascience.com/exoplanet-hunting-using-machine-learning-d615958e1787
+Also check out [this article](https://www.theaidream.com/post/exoplanet-exploration-using-machine-learning) to understand more about exoplanet exploration.
