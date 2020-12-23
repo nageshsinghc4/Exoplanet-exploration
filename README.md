@@ -9,6 +9,7 @@ I wanted to see if I could look at the available exoplanet data and make predict
 The dataset can be downloaded from kaggle. https://www.kaggle.com/keplersmachines/kepler-labelled-time-series-data
 
 **exoplanet_ANN.py:**Contains Neural network implementation
+
 **exoplanet_hunt.py:**Contains Machine Learning implementation.
 
 Also check out [this article](https://www.theaidream.com/post/exoplanet-exploration-using-machine-learning) to understand more about exoplanet exploration.
